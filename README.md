@@ -1,6 +1,8 @@
 # Programare avansata pe obiecte
 Teme si proiect in Java
 
-## Proiect
+# Proiect
+## _Platforma food delivery_
+![diagrama]()
 
 

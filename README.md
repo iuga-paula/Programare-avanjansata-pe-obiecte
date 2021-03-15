@@ -32,7 +32,8 @@ Obiecte:
   -   _Băutura_ 
   -   _Desert_
 * _Sofer_ are un nume prenume și un salariu - tansportă o comandă la adresa clinetului.
-* _Comanda_ are un id, un timp estimat de livrare, un sofer și conține un array de produse, corespunzătoare unui singur local.
+* _Comanda_ are un id, un timp estimat de livrare, un sofer și conține un array de produse, corespunzătoare unui singur local.\
+\
 
 
 ![diagrama](https://github.com/iuga-paula/Programare-avanjansata-pe-obiecte/blob/master/Proiect/Diagrama%20Platforma%20Food%20Delivery.jpg)

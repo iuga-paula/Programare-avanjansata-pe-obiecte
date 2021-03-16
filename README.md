@@ -1,7 +1,7 @@
 # Programare avansata pe obiecte
 Teme si proiect in Java
 
-# Proiect
+# [Proiect](https://github.com/iuga-paula/Programare-avansata-pe-obiecte/tree/master/Proiect)
 ## _Platforma food delivery_
 
 ### 1. Definirea sistemului
@@ -40,4 +40,7 @@ Obiecte:
 ![diagrama](https://github.com/iuga-paula/Programare-avanjansata-pe-obiecte/blob/master/Proiect/Diagrama%20Platforma%20Food%20Delivery.jpg)
 
 ### 2. Aplicația în Java:
-[Fișierele](https://github.com/iuga-paula/Programare-avansata-pe-obiecte/tree/master/Proiect)
+* Clasele și realțiile dintre ele(https://github.com/iuga-paula/Programare-avansata-pe-obiecte/tree/master/Proiect)
+* Realizarea persistenței cu fișiere CSV
+* Realizarea unui serviciu de audit
+* Baza de date cu JDBC

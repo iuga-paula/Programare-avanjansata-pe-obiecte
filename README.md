@@ -39,4 +39,5 @@ Obiecte:
 
 ![diagrama](https://github.com/iuga-paula/Programare-avanjansata-pe-obiecte/blob/master/Proiect/Diagrama%20Platforma%20Food%20Delivery.jpg)
 
-
+### 2. Aplicația în Java:
+[Fișierele](https://github.com/iuga-paula/Programare-avansata-pe-obiecte/tree/master/Proiect)

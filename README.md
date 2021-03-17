@@ -27,6 +27,7 @@ Obiecte:
 * _Utilizator manager de local_ care are un local și un cod de autorizație pentru local. 
 * _Manager de useri_ care permite logarea și înregistrarea userilor.
 * _Adresa_ - câmpurile localitate, număr, județ
+* _Adresa validator_ care validează adresa.
 * _Produs_ apartine unui local
   -  _Fel principal_ 
   -   _Băutura_ 

@@ -93,24 +93,24 @@ public class FelPrincipal extends Produs {
     @Override
     public String toString() {
 
-        String str;
-        str = denumire;
+        StringBuilder str = new StringBuilder(denumire);
+
         if (Objects.equals(this.garnitura, "")) {
 
-            str = str + " fara garnitura";
+            str.append(" fara garnitura");
 
         } else {
-            str = str + " cu " + garnitura;
+            str.append(" cu " + garnitura);
         }
 
         if (Objects.equals(this.salata, "")) {
 
-            str = str + " fara salata";
+            str.append(" fara salata");
 
         } else {
-            str = str + " cu " + salata;
+            str.append(" cu " + salata);
         }
-        return str + "\n";
+        return str + "";
     }
 
 

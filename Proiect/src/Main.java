@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
 
+
         //String strada, Integer nr, Integer bloc, String scara, Integer apartament, String localitate, String judet, Integer sector, Integer codPostal
         ValidatorAdesa validatorAdesa = new ValidatorAdesa();
         Adresa a1 = new Adresa("Bul. Tineretului", 10, 5 , "A", (Integer) null, "Bucuresti", "Bucuresti", 6, "302900");

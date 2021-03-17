@@ -34,6 +34,15 @@ public class Local {
         nrAngajati = 0;
     }
 
+    public Local(Local l) {
+        this.denumire = l.denumire;
+        this.adresa = l.adresa;
+        this.produse = l.produse;
+        this.timpLivrare = l.timpLivrare;
+        this.timpExecutieComanda = l.timpExecutieComanda;
+
+    }
+
     static void addAngajat(){
         nrAngajati++;
     }

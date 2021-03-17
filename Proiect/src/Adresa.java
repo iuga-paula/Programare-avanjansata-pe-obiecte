@@ -104,7 +104,7 @@ public class Adresa {
 
     @Override
     public String toString() {
-        return "Se gaseset la adresa{" +
+        return "Se gaseste la adresa{" +
                 "strada='" + strada + '\'' +
                 ", nr=" + nr +
                 ", bloc=" + bloc +

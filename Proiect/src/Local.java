@@ -66,7 +66,7 @@ public class Local {
             Double pret = produs.getPret() - discount*1/produs.getPret();
             produs.setPret(pret);
             produse.add(produs);
-            produs.setPret(pretInitial);
+           // produs.setPret(pretInitial);
         }
         else{
             System.out.println("Localul nu ofera acest produs!");
@@ -74,7 +74,7 @@ public class Local {
     }
 
     public void afiseazaProduse(){
-        System.out.println("Produsele localului" + denumire + " sunt:");
+        System.out.println("Produsele localului " + denumire + " sunt:");
        for(Produs p : produse){
            if(p instanceof Desert){
                System.out.println("*Desert* ");
@@ -130,6 +130,10 @@ public class Local {
 
     public void setAdresa(Adresa adresa) {
         this.adresa = adresa;
+    }
+
+    public Set<Produs> getProduse() {
+        return produse;
     }
 
     @Override

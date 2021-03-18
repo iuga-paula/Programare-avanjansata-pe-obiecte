@@ -8,17 +8,19 @@ public class Sofer {
     private  String prenume;
     private String tipContract;
     private  Double salariu;
+    private String nrTelefon;
 
-    public Sofer(String nume, String prenume, String tipContract, Double salariu){
+    public Sofer(String nume, String prenume, String tipContract, Double salariu, String nrTelefon){
         this.nume = nume;
         this.prenume = prenume;
         this.tipContract = tipContract;
         this.salariu = salariu;
+        this.nrTelefon = nrTelefon;
 
     }
 
     public Sofer(){
-        this("", "", "full-time", 1500.00);
+        this("", "", "full-time", 1500.00, "0700000000");
 
     }
 
@@ -54,6 +56,14 @@ public class Sofer {
         this.salariu = salariu;
     }
 
+    public String getNrTelefon() {
+        return nrTelefon;
+    }
+
+    public void setNrTelefon(String nrTelefon) {
+        this.nrTelefon = nrTelefon;
+    }
+
     public  void maresteSalariu(Double procent){
         System.out.println("Se mareste salariul soferului " + this.nume + " de " + this.salariu + " cu " + procent + " la suta");
         this.salariu = this.salariu * procent/100 + this.salariu;
@@ -73,30 +83,33 @@ public class Sofer {
             if(prenume.matches("^[ A-Za-z]+$")) {
                 this.prenume = prenume.trim();
 
-                System.out.print("Dati tipul contactului: full-time, part-time sau practica \n");
-                String tip = scanner.next();
-                tip = tip.trim();
-                if(Arrays.asList(new String[]{"full-time", "part-time"}).contains(tip)){
-                    this.tipContract = tip;
-                    System.out.print("Dati salariul: prag minim 1500.00 lei pentru full-time \n");
-                    Double salariu = scanner.nextDouble();
+                System.out.print("Dati nr telefon: \n");
+                String nr = scanner.next();
+                if(nr.matches("[0-9]{10}")) {
+
+                    this.nrTelefon = nrTelefon;
+
+                    System.out.print("Dati tipul contactului: full-time, part-time sau practica \n");
+                    String tip = scanner.next();
+                    tip = tip.trim();
+                    if (Arrays.asList(new String[]{"full-time", "part-time"}).contains(tip)) {
+                        this.tipContract = tip;
+                        System.out.print("Dati salariul: prag minim 1500.00 lei pentru full-time \n");
+                        Double salariu = scanner.nextDouble();
 
 
-                    if(tip == "full-time" && salariu < 1500.00)
-                    {
-                        System.out.println("Prag minim depasit! Repetati opreatiunea \n");
-                    }
-                    else {
-                        this.salariu = salariu;
+                        if (tip == "full-time" && salariu < 1500.00) {
+                            System.out.println("Prag minim depasit! Repetati opreatiunea \n");
+                        } else {
+                            this.salariu = salariu;
+                        }
+                    } else {
+                        System.out.println("Tip contract gresit! Repetati operatiunea!");
                     }
                 }
                 else{
-                    System.out.println("Tip contract gresit! Repetati operatiunea!");
+                    System.out.println("Nr de telefon gresit! Repetati operatiunea!");
                 }
-
-
-
-
 
 
 

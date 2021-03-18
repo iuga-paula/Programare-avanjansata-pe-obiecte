@@ -54,7 +54,7 @@ public class UtilizatorNormal extends Utilizator{
         }
         else{
             this.comandaInCurs = istoricComenzi.get(nr-1);
-            comandaInCurs.finalizeaza();
+            //comandaInCurs.finalizeaza(un ob sofer);
 
         }
 

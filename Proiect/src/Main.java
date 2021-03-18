@@ -3,11 +3,15 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+       GestiunePlatforma gestiunePlatforma = GestiunePlatforma.getInstance();
+       GestiunePlatforma  gestiunePlatforma1 = GestiunePlatforma.getInstance();
+
+        if(gestiunePlatforma == gestiunePlatforma1) {
+            System.out.println("aceeasi instanta");
+        }
 
 
-
-        //String strada, Integer nr, Integer bloc, String scara, Integer apartament, String localitate, String judet, Integer sector, Integer codPostal
-        ValidatorAdesa validatorAdesa = new ValidatorAdesa();
+        /*ValidatorAdesa validatorAdesa = new ValidatorAdesa();
         Adresa a1 = new Adresa("Bul. Tineretului", 10, 5 , "A", (Integer) null, "Bucuresti", "Bucuresti", 6, "302900");
         validatorAdesa.Validare(a1);
 
@@ -15,6 +19,7 @@ public class Main {
         Local PuertoCafe = new Local(new Adresa("Bul. Dristor", 10, null, null, null, "Bucuresti", "Bucuresti", 3, "302900"), "Puerto Cafe", new Time(1_800_000), new Time(900_000));
         System.out.println(PuertoCafe);
         System.out.println(PuertoCafe.getNrAngajati());
+
 
         Local SalonGolescu = new Local(new Adresa(), "Salon Golescu", new Time(36_000_000), new Time(1_000_000));
         SalonGolescu.setAdresa(a1);
@@ -30,9 +35,11 @@ public class Main {
         System.out.println(fp);
         System.out.println(fp.getId());
 
+        FelPrincipal fp3 = new FelPrincipal("ardei iuti", "", "sarmale", 15.50);
+
         FelPrincipal fp2 = new FelPrincipal();
-        fp2.introduDateFelPrincipal();
-        fp2.setPret(25.99);
+       fp2.introduDateFelPrincipal();
+       fp2.setPret(25.99);
         System.out.println(fp2);
         System.out.println(fp2.getId());
 
@@ -43,17 +50,24 @@ public class Main {
 
         SalonGolescu.addProdus(d);
         SalonGolescu.addProdus(d);
-        SalonGolescu.addProdus(b);
         SalonGolescu.addProdus(fp);
         SalonGolescu.addProdus(fp2);
+        SalonGolescu.addProdus(fp3);
 
         SalonGolescu.afiseazaProduse();
 
+
         SalonGolescu.stergeProdus(b);
-        SalonGolescu.stergeProdus(b);
-        SalonGolescu.oferaDiscount(fp, 40.00);
-        //System.out.println(fp.getPret());
+       SalonGolescu.oferaDiscount(fp, 40.00);
+       System.out.println(fp.getPret());
         SalonGolescu.afiseazaProduse();
+
+        PuertoCafe.addProdus(b);
+
+        System.out.println("-----------------------------");
+        ManagerLocal managerLocal = new ManagerLocal(SalonGolescu, "0102938493hgi", "Antonescu", "Marian Mihai", "mm@mial.com" );
+        System.out.println(managerLocal.getLocal());
+        System.out.println(managerLocal.getLocal().getNrAngajati()); // a ramas 121
 
 
 
@@ -62,13 +76,29 @@ public class Main {
         Sofer sofer1 = new Sofer();
         System.out.println(sofer1);
 
-        sofer1.introduDateSofer();
+       // sofer1.introduDateSofer();
         System.out.println(sofer1);
         sofer1.maresteSalariu(10.00);
 
-        Sofer sofer2 = new Sofer("Ilie", "Casian Iulian", "part-time", 1500.00);
+        Sofer sofer2 = new Sofer("Ilie", "Casian Iulian", "part-time", 1500.00, "0772207605");
 
 
+        Comanda comanda = new Comanda(10.00,SalonGolescu);
+        comanda.adaugaProdus(fp);
+        comanda.adaugaProdus(b);
+        System.out.println(SalonGolescu.getProduse().contains(fp));
+        System.out.println(SalonGolescu.getProduse().contains(fp2));
+        fp3.setPret(10.00);//daca modific ceva la un produs nu se modifica si din lista localurilor deci noul fp3 nu mai e  in lista Salonului
+        System.out.println(SalonGolescu.getProduse().contains(fp3));
+
+
+        FelPrincipal fp4 = new FelPrincipal("", "", "tochitura", 45.50);
+        SalonGolescu.addProdus(fp4);
+        SalonGolescu.oferaDiscount(fp4,10.00);
+        System.out.println(SalonGolescu.getProduse().contains(fp4));
+        comanda.finalizeaza(sofer2);
+
+        System.out.println();
         String[] str = " ana are     ".split(" "); //face si siruri vide
         System.out.println(Arrays.toString(str));
         String[] str2 = (" ana are     ".trim()).split(" ");//fara siruri vide
@@ -76,7 +106,7 @@ public class Main {
         String s = "ana ";
         if(s.matches("^[ A-Za-z]+$")){
             System.out.println("da");
-        }
+        }*/
 
     }
 }

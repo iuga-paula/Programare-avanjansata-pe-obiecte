@@ -6,6 +6,7 @@ Teme si proiect in Java
 
 ### 1. Definirea sistemului
 Acțiuni:
+* Un utlizator își poate face cont pe platformă, se poate loga și deloga.
 * Un utilizator normal poate să facă o comanda de mai multe produse.
 * Un utilizator normal poate să vadă o listă cu localuri. Dacă selectează un local poate vedea lista cu produse. 
 * Un utlizator normal poate căuta un produs și poate adăuga sau șterge un produs din comanda curentă.

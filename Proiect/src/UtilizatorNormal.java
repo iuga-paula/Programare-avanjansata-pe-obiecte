@@ -29,6 +29,8 @@ public class UtilizatorNormal extends Utilizator{
 
     }
 
+
+
     public void afiseazaPreferinte(){
 
         System.out.println("Lista cu preferintele este: ");

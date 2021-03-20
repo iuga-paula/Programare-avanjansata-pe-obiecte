@@ -4,6 +4,11 @@ public class ManagerLocal extends Utilizator{
     String codAutorizatie;
 
 
+    public  ManagerLocal(){
+
+    }
+
+
     public ManagerLocal(Local l, String codAutorizatie, String nume, String prenume, String email){
         local = new Local(l);
         this.codAutorizatie = codAutorizatie;
@@ -27,6 +32,8 @@ public class ManagerLocal extends Utilizator{
     public void setCodAutorizatie(String codAutorizatie) {
         this.codAutorizatie = codAutorizatie;
     }
+
+
 
     @Override
     public String toString() {

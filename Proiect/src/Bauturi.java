@@ -49,7 +49,7 @@ public class Bauturi extends  Produs{
 
         StringBuilder str = new StringBuilder("denumire");
 
-        if(alcool == true)
+        if(alcool)
         {
             str.append(" cu alcool");
         }

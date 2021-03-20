@@ -162,4 +162,15 @@ public class Comanda {
     public void setProduse(List<Produs> produse) {
         this.produse = produse;
     }
+
+    @Override
+    public String toString() {
+        return "Comanda{" +
+                "IdComanda=" + IdComanda +
+                ", total=" + total +
+                ", discount=" + discount +
+                ", local=" + local +
+                ", produse=" + produse +
+                '}';
+    }
 }

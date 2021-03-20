@@ -6,9 +6,22 @@ public class Main {
        GestiunePlatforma gestiunePlatforma = GestiunePlatforma.getInstance();
        GestiunePlatforma  gestiunePlatforma1 = GestiunePlatforma.getInstance();
 
-        if(gestiunePlatforma == gestiunePlatforma1) {
-            System.out.println("aceeasi instanta");
-        }
+
+        gestiunePlatforma.inegistrare();
+        gestiunePlatforma.inegistrare();
+        gestiunePlatforma.logare();
+        Local SalonGolescu = new Local(new Adresa(), "Salon Golescu", new Time(36_000_000), new Time(1_000_000));
+        gestiunePlatforma.adaugaLocalManager(SalonGolescu);
+        gestiunePlatforma.adaugaLocalPlaforma(SalonGolescu);
+
+        //gestiunePlatforma.logare();
+
+        gestiunePlatforma.delogare();
+        gestiunePlatforma.afiseazaDateCont();
+
+        gestiunePlatforma.logare();
+        gestiunePlatforma.afiseazaDateCont();
+        gestiunePlatforma.schimbaAdresa(new Adresa("Bul. Tineretului", 10, 5 , "A", (Integer) null, "Bucuresti", "Bucuresti", 6, "302900"));
 
 
         /*ValidatorAdesa validatorAdesa = new ValidatorAdesa();

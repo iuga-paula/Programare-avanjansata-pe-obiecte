@@ -93,6 +93,8 @@ public class GestiunePlatforma {
 
         if (Objects.equals(optiune.toLowerCase(), "nu")) {
 
+            System.out.println("Intorduceti cod autorizatie:");
+            mn.codAutorizatie = scanner.next();
             mn.setEmail(mail);
             mn.setNume(nume);
             mn.setPrenume(prenume);
@@ -191,7 +193,7 @@ public class GestiunePlatforma {
 
             }
                 else{
-                    System.out.println("Adresa invalida! Introduceti alta adresa.");
+                    System.out.print(" Introduceti alta adresa.");
                 }
             }
             else {
@@ -370,6 +372,7 @@ public class GestiunePlatforma {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 System.out.println("*Repeta comanda cu nr de ordine " + nr + "*");
                 ((UtilizatorNormal) users.get(usernameUtlogat)).repetaComanda(nr);
+                finalizeazaComanda();
             }
         }
         else{
@@ -397,7 +400,7 @@ public class GestiunePlatforma {
 
     }
 
-    public  void StergeLocalPreferinte(Local l){
+    public  void stergeLocalPreferinte(Local l){
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 if(localuri.contains(l)) {
@@ -407,6 +410,19 @@ public class GestiunePlatforma {
                 else{
                     System.out.println("Nu exista acest local");
                 }
+            }
+        }
+        else{
+            System.out.println("Nu sunteti logat!");
+        }
+
+    }
+
+    public  void veziPreferinte(){
+        if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
+            if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
+                ((UtilizatorNormal) users.get(usernameUtlogat)).afiseazaPreferinte();
+
             }
         }
         else{
@@ -449,11 +465,17 @@ public class GestiunePlatforma {
     public void comandaDeLaLocalul(String denumire){
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
+                boolean ok = false;
                 for (Local l : localuri) {
-                    if (Objects.equals(l.getDenumire(), denumire)) {
+                    if (Objects.equals(l.getDenumire().toLowerCase(), denumire.toLowerCase())) {
+                        ok = true;
                         ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().setLocal(l);
                         break;
                     }
+                }
+
+                if(!ok){
+                    System.out.println("Nu exista acest local!");
                 }
             }
         }
@@ -471,7 +493,7 @@ public class GestiunePlatforma {
                 System.out.println("*Produsul " + numeProdus + "*");
                 for(Local local : localuri){
                     for(Produs produs : local.getProduse()){
-                        if(Objects.equals(produs.getDenumire(), numeProdus)){
+                        if(Objects.equals(produs.getDenumire().toLowerCase(), numeProdus.toLowerCase())){
                             ok =  true;
                             System.out.println("in " + local.getDenumire() + " pret: " + produs.getPret());
 
@@ -544,7 +566,10 @@ public class GestiunePlatforma {
                 int optiune = scanner.nextInt();
                 //aleg sofer random din multimea de soferi si il asignez la comanda;
                 switch (optiune) {
-                    case 1 -> ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().finalizeaza2();
+                    case 1 -> {
+                        ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().finalizeaza2();
+                        ((UtilizatorNormal) users.get(usernameUtlogat)).adaugaComandaIstoric();
+                    }
                     case 2 -> {
                         int size = soferi.size();
                         int item = new Random().nextInt(size);
@@ -552,6 +577,7 @@ public class GestiunePlatforma {
                         for (Sofer sofer : soferi) {
                             if (i == item) {
                                 ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().finalizeaza(sofer);
+                                ((UtilizatorNormal) users.get(usernameUtlogat)).adaugaComandaIstoric();
                                 break;
                             }
 
@@ -630,6 +656,11 @@ public class GestiunePlatforma {
         SalonGolescu.addProdus(fp4);
         SalonGolescu.addProdus(fp5);
         SalonGolescu.addProdus(d4);
+
+        localuri.add(SalonGolescu);
+        localuri.add(CasaDori);
+        localuri.add(CremeriaEmille);
+        localuri.add(PuertoCafe);
 
 
     }

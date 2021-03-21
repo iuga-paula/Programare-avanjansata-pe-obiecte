@@ -26,6 +26,9 @@ public class UtilizatorNormal extends Utilizator{
     }
 
     public UtilizatorNormal(){
+        comandaInCurs = new Comanda();
+        istoricComenzi = new ArrayList<Comanda>(); //ArrayList implementeaza List care extinde collection
+        preferinte = new HashSet<Local>();
 
     }
 
@@ -34,6 +37,10 @@ public class UtilizatorNormal extends Utilizator{
     public void afiseazaPreferinte(){
 
         System.out.println("Lista cu preferintele este: ");
+        if(preferinte == null || preferinte.size() == 0){
+            System.out.println("Inca nu ati adauga preferinte.");
+            return;
+        }
         for(Local l :preferinte){
             System.out.println(l);
         }
@@ -43,10 +50,14 @@ public class UtilizatorNormal extends Utilizator{
     public void afiseazaIstoricComenzi(){
         System.out.println("Istoricul comenzilor este:");
 
-
-        for(int i = 0 ; i< istoricComenzi.size(); i++){
-            System.out.println("Comanda cu nr: " + (i+1));
-            System.out.println(istoricComenzi.get(i));
+        if(istoricComenzi != null) {
+            for (int i = 0; i < istoricComenzi.size(); i++) {
+                System.out.println("Comanda cu nr: " + (i + 1));
+                System.out.println(istoricComenzi.get(i));
+            }
+        }
+        else{
+            System.out.println("Nu ati comandat nimic inca.");
         }
     }
 
@@ -94,6 +105,10 @@ public class UtilizatorNormal extends Utilizator{
 
     public void setAdresa(Adresa adresa) {
         this.adresa = adresa;
+    }
+
+    public void adaugaComandaIstoric(){
+        this.istoricComenzi.add(this.comandaInCurs);
     }
 
     //adauga comanda mare in manager

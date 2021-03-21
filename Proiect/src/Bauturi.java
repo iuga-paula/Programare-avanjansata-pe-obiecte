@@ -47,7 +47,7 @@ public class Bauturi extends  Produs{
     @Override
     public String toString() {
 
-        StringBuilder str = new StringBuilder("denumire");
+        StringBuilder str = new StringBuilder(this.denumire);
 
         if(alcool)
         {

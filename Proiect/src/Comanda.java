@@ -90,6 +90,7 @@ public class Comanda {
 
     public void adaugaProdus(Produs p){
         if(!(local.getProduse()).contains(p)){
+            System.out.println(local);
             System.out.println("Produs de la alt local! Adaugati un local nou");
         }
         else{
@@ -101,6 +102,7 @@ public class Comanda {
 
     public void stergeToateProdusele(){
         produse.clear();
+        total = 0.00;
     }
 
     public void stergeProdus(Produs p){
@@ -142,7 +144,7 @@ public class Comanda {
     }
 
     public void setLocal(Local local) {
-        this.local = local;
+        this.local = new Local(local);
         //stergem si produsele;
         this.stergeToateProdusele();
     }

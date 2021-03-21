@@ -1,27 +1,63 @@
+import java.nio.file.FileSystemAlreadyExistsException;
 import java.sql.Time;
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
        GestiunePlatforma gestiunePlatforma = GestiunePlatforma.getInstance();
-       GestiunePlatforma  gestiunePlatforma1 = GestiunePlatforma.getInstance();
+      // GestiunePlatforma  gestiunePlatforma1 = GestiunePlatforma.getInstance();
 
 
         gestiunePlatforma.inegistrare();
         gestiunePlatforma.inegistrare();
-        gestiunePlatforma.logare();
-        Local SalonGolescu = new Local(new Adresa(), "Salon Golescu", new Time(36_000_000), new Time(1_000_000));
-        gestiunePlatforma.adaugaLocalManager(SalonGolescu);
-        gestiunePlatforma.adaugaLocalPlaforma(SalonGolescu);
+        gestiunePlatforma.logare(); //cu manager hotel
+
+        FelPrincipal fp1 = new FelPrincipal("", "", "Paste cu fructe de mare", 26.50);
+        FelPrincipal fp2 = new FelPrincipal("", "ruccola", "Zucchini cu pui", 30.50);
+        Bauturi b1 = new Bauturi(true, true, "Aperol", 10.00);
+        Bauturi b2 = new Bauturi(true, true, "Sampanie", 15.00);
+        Bauturi b3 = new Bauturi(true, true, "Vin rosu", 13.00);
+        Local AltShift = new Local(new Adresa("Bul. Unirii", 28, null, null, null, "Bucuresti", "Bucuresti", 1, "312900"), "AltShift Restaurant", new Time(1_800_000), new Time(900_000));
+        AltShift.addProdus(fp1);
+        AltShift.addProdus(fp2);
+        AltShift.addProdus(b1);
+        AltShift.addProdus(b2);
+
+        gestiunePlatforma.adaugaLocalManager(AltShift);
+        gestiunePlatforma.adaugaLocalPlaforma(AltShift);
 
         //gestiunePlatforma.logare();
 
         gestiunePlatforma.delogare();
         gestiunePlatforma.afiseazaDateCont();
 
+        gestiunePlatforma.addLocaluri();
+        gestiunePlatforma.addSoferi();
+
         gestiunePlatforma.logare();
         gestiunePlatforma.afiseazaDateCont();
         gestiunePlatforma.schimbaAdresa(new Adresa("Bul. Tineretului", 10, 5 , "A", (Integer) null, "Bucuresti", "Bucuresti", 6, "302900"));
+     gestiunePlatforma.schimbaAdresa(new Adresa("Bul. Tineretului", 10, 5 , "A", 123, "Bucuresti", "Bucuresti", 6, "302900"));
+        gestiunePlatforma.afiseazaDateCont();
+        gestiunePlatforma.veziListaLocaluri();
+        gestiunePlatforma.cautaProdus("Paste cu fructe de mare");
+        gestiunePlatforma.veziProduseLocal(AltShift);
+        gestiunePlatforma.comandaDeLaLocalul("AltShift");
+        gestiunePlatforma.comandaDeLaLocalul("AltShift Restaurant");
+        gestiunePlatforma.adaugaProdusLaComanda(fp1);
+        gestiunePlatforma.adaugaProdusLaComanda(fp2);
+        gestiunePlatforma.adaugaProdusLaComanda(b3);
+        gestiunePlatforma.adaugaProdusLaComanda(b1);
+        gestiunePlatforma.stergeProdusDinComanda(b3);
+        gestiunePlatforma.stergeProdusDinComanda(fp2);
+        //gestiunePlatforma.stergeToateProdusele();
+        gestiunePlatforma.finalizeazaComanda();
+        gestiunePlatforma.veziIstoric();
+        gestiunePlatforma.adaugaLocalPreferinte(AltShift);
+        gestiunePlatforma.veziPreferinte();
+        //gestiunePlatforma.stergeLocalPreferinte(AltShift);
+        //gestiunePlatforma.veziPreferinte();
+        //gestiunePlatforma.repetaComanda(1);
 
 
         /*ValidatorAdesa validatorAdesa = new ValidatorAdesa();

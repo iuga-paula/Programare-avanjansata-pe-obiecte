@@ -67,6 +67,11 @@ public class FelPrincipal extends Produs {
     }
 
     @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
     public Double getPret() {
         return pret;
     }

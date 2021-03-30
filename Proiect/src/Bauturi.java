@@ -19,6 +19,11 @@ public class Bauturi extends  Produs{
     }
 
     @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
     public Double getPret() {
         return pret;
     }

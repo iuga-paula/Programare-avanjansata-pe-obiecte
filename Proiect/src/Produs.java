@@ -1,6 +1,6 @@
 import java.util.Objects;
 
-public abstract class Produs {
+public abstract class Produs implements Cloneable{
 
     private Integer Id;
     private static Integer idCounter = 0;
@@ -24,6 +24,11 @@ public abstract class Produs {
 
         idCounter++;
 
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public Integer getId() {

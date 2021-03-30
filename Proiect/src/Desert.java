@@ -35,6 +35,11 @@ public class Desert extends Produs{
         }
     }
 
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     public Boolean getVegan() {
         return vegan;
     }

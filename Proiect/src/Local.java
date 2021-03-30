@@ -59,13 +59,14 @@ public class Local {
 
     }
 
-    public void oferaDiscount(Produs produs, Double discount){
+    public void oferaDiscount(Produs produs, Double discount) throws CloneNotSupportedException {
         if(produse.contains(produs)){
             produse.remove(produs);
-            Double pretInitial = produs.getPret();
+
+            Produs produs1 = (Produs) produs.clone();
             Double pret = produs.getPret() - discount*1/produs.getPret();
-            produs.setPret(pret);
-            produse.add(produs);
+            produs1.setPret(pret);
+            produse.add(produs1);
            // produs.setPret(pretInitial);
         }
         else{

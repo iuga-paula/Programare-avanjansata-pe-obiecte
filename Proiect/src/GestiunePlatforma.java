@@ -287,7 +287,7 @@ public class GestiunePlatforma {
 
     }
 
-    public void oferaDiscout(Produs p, Local local, Double discount){
+    public void oferaDiscout(Produs p, Local local, Double discount) throws CloneNotSupportedException {
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
                 for(Local local1:localuri) {

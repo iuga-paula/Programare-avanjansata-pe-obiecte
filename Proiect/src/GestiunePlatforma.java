@@ -10,21 +10,27 @@ public class GestiunePlatforma {
 
     private static GestiunePlatforma instance;
     private Map<String, Utilizator> users = new Hashtable<String, Utilizator>(); //hasthtable pt userii inregistrati: user[username] = obiectul user care ct hashul de parola;
-    private Set<Local> localuri = new HashSet<Local>();
+    private TreeSet<Local> localuri = new TreeSet<>();
     private String usernameUtlogat;
     private String parolaUtlogat;
-    private Set<Sofer> soferi = new HashSet<Sofer>() ;
+    private Set<Sofer> soferi = new HashSet<Sofer>();
 
     private Scanner scanner = new Scanner(System.in);
+    private Audit audit;
+    private CitireDate citireDate;
 
     private GestiunePlatforma() {
         System.out.println("Bine ati venit la platforma GoodFood GoodLife!");
+
+        audit = Audit.getInstance("D:\\documente\\An2_sem2\\ProgrAvansOb\\Proiect\\Logging.csv");//creez serviciul de audit
+        citireDate = CitireDate.getInstance();
     }
 
 
     public static GestiunePlatforma getInstance() {
         if (instance == null) {
             instance = new GestiunePlatforma();
+
         }
         return instance;
     }
@@ -40,6 +46,7 @@ public class GestiunePlatforma {
 
     public void inegistrare() {
 
+        audit.scrieFisierLoggin();
 
         System.out.println("*Inregistrare utilizator*");
         System.out.println("Intorduceti username");
@@ -138,6 +145,8 @@ public class GestiunePlatforma {
     }
 
     public void logare() {
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             System.out.println("Sunteti deja logat. Pentru logare cu alt utilizator, delogati-va.");
         }
@@ -170,6 +179,8 @@ public class GestiunePlatforma {
 
 
     public void delogare() {
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             System.out.println(usernameUtlogat + ", ne revedem curand!");
         }
@@ -180,6 +191,8 @@ public class GestiunePlatforma {
     }
 
     public  void schimbaAdresa(Adresa adresa){
+        audit.scrieFisierLoggin();
+
         ValidatorAdesa validatorAdesa = new ValidatorAdesa();
 
 
@@ -209,6 +222,8 @@ public class GestiunePlatforma {
     }
 
     public void adaugaLocalPlaforma(Local local) {
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
 
@@ -231,6 +246,8 @@ public class GestiunePlatforma {
     }
 
     public void adaugaLocalManager(Local local) {
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
                 System.out.println("*Adaugati-va un local*");
@@ -245,6 +262,8 @@ public class GestiunePlatforma {
     }
 
     public void veziListaLocaluri(){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             System.out.println("*Lista Localuri*");
 
@@ -263,12 +282,12 @@ public class GestiunePlatforma {
     }
 
     public void veziProduseLocal(Local local){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (localuri.contains(local)) {
                 System.out.println("*Produse local " + local.getDenumire() + "*");
-                for(Produs p : local.getProduse()){
-                    System.out.println(p);
-                }
+                local.afiseazaProduse();
             } else {
                 System.out.println("Nu exista acest local!");
             }
@@ -281,13 +300,17 @@ public class GestiunePlatforma {
     }
 
     public void afiseazaDateCont(){
+        audit.scrieFisierLoggin();
+
         if(usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             System.out.println(users.get(usernameUtlogat));
         }
 
     }
 
-    public void oferaDiscout(Produs p, Local local, Double discount) throws CloneNotSupportedException {
+    public void oferaDiscount(Produs p, Local local, Double discount) throws CloneNotSupportedException {
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
                 for(Local local1:localuri) {
@@ -310,6 +333,8 @@ public class GestiunePlatforma {
     }
 
     public void adaugaProdus(Produs p, Local local){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
                 for(Local local1:localuri) {
@@ -332,6 +357,8 @@ public class GestiunePlatforma {
     }
 
     public void stergeProdus(Produs p, Local local){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
                 for(Local local1:localuri) {
@@ -355,6 +382,8 @@ public class GestiunePlatforma {
 
 
     public void veziIstoric(){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 System.out.println("*Istoric Comenzi*");
@@ -368,6 +397,8 @@ public class GestiunePlatforma {
     }
 
     public void repetaComanda(Integer nr){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 System.out.println("*Repeta comanda cu nr de ordine " + nr + "*");
@@ -383,6 +414,8 @@ public class GestiunePlatforma {
     }
 
     public  void adaugaLocalPreferinte(Local l){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 if(localuri.contains(l)) {
@@ -401,6 +434,8 @@ public class GestiunePlatforma {
     }
 
     public  void stergeLocalPreferinte(Local l){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 if(localuri.contains(l)) {
@@ -419,6 +454,8 @@ public class GestiunePlatforma {
     }
 
     public  void veziPreferinte(){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 ((UtilizatorNormal) users.get(usernameUtlogat)).afiseazaPreferinte();
@@ -431,25 +468,11 @@ public class GestiunePlatforma {
 
     }
 
-    public void AfiseazaProduse(Local l){
-        if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
-            if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
-                if(localuri.contains(l)) {
-                    System.out.println("*Produsele localului " + l.getDenumire() + "*");
-                    l.afiseazaProduse();
-                }
-                else{
-                    System.out.println("Nu exista acest local");
-                }
-            }
-        }
-        else{
-            System.out.println("Nu sunteti logat!");
-        }
 
-    }
 
     public void afiseazaComandaInCurs(){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 System.out.println("*Comanda in curs*");
@@ -463,6 +486,8 @@ public class GestiunePlatforma {
     }
 
     public void comandaDeLaLocalul(String denumire){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 boolean ok = false;
@@ -487,6 +512,8 @@ public class GestiunePlatforma {
 
 
     public void cautaProdus(String numeProdus){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
                 boolean ok = false;
@@ -513,6 +540,8 @@ public class GestiunePlatforma {
     }
 
     public  void adaugaProdusLaComanda(Produs p) {
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if(users.get(usernameUtlogat) instanceof UtilizatorNormal){
                 System.out.println("*Adauga " + p.getDenumire() + " la comanda " +  ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getIdComanda() + " *");
@@ -527,6 +556,8 @@ public class GestiunePlatforma {
     }
 
     public  void stergeProdusDinComanda(Produs p) {
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if(users.get(usernameUtlogat) instanceof UtilizatorNormal){
                 System.out.println("*Sterge " + p.getDenumire() + " din comanda " +  ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getIdComanda() + " *");
@@ -542,6 +573,8 @@ public class GestiunePlatforma {
     }
 
     public  void stergeToateProdusele(){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if(users.get(usernameUtlogat) instanceof UtilizatorNormal){
                 System.out.println("*Sterge toate produsele din comanda " +  ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getIdComanda() + " *");
@@ -557,6 +590,8 @@ public class GestiunePlatforma {
     }
 
     public void finalizeazaComanda(){
+        audit.scrieFisierLoggin();
+
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if(users.get(usernameUtlogat) instanceof UtilizatorNormal){
                 System.out.println("*Finalizare comanda*");
@@ -595,74 +630,9 @@ public class GestiunePlatforma {
         }
     }
 
-    public  void addLocaluri(){
-        FelPrincipal fp1 = new FelPrincipal("", "de muraturi", "Tochitura", 45.50);
-        FelPrincipal fp2 = new FelPrincipal("orez", "", "Curry de pui", 25.50);
-        FelPrincipal fp3 = new FelPrincipal("cartofi copti", "de cruditati", "Somon", 45.90);
-        FelPrincipal fp4 = new FelPrincipal("orez", "", "Paella cu fructe de mare", 35.00);
-        FelPrincipal fp5 = new FelPrincipal("legume la gratar", "", "Caracacatita la gratar", 50.50);
-        FelPrincipal fp6 = new FelPrincipal("orez", "", "Paella vegetariana", 30.70);
-        FelPrincipal fp7 = new FelPrincipal("", "", "Frigarui de pui", 20.00);
-        FelPrincipal fp8 = new FelPrincipal("mamaliga", "de varza", "Figatei de pui", 15.50);
+public  void addLocaluri(){
 
-        Desert d1 = new Desert(false, "Lava cake", 12.00);
-        Desert d2 = new Desert(true, "Salam de biscuiti", 10.00);
-        Desert d3 = new Desert(true, "Clatite cu fructe", 9.50);
-        Desert d4 = new Desert(false, "CheeseCake", 9.50);
-
-        Bauturi b1 = new Bauturi(true, true, "Aperol", 10.00);
-        Bauturi b2 = new Bauturi(true, true, "Sampanie rose", 18.00);
-        Bauturi b3 = new Bauturi(true, false, "Vin rosu", 15.00);
-        Bauturi b4 = new Bauturi(true, false, "Dorna", 5.00);
-        Bauturi b7 = new Bauturi(false, false, "Dorna", 5.00);
-        Bauturi b5 = new Bauturi(true, false, "Vin alb", 15.00);
-        Bauturi b6 = new Bauturi(false, false, "Cappy", 10.00);
-
-
-        Local PuertoCafe = new Local(new Adresa("Bul. Dristor", 10, null, null, null, "Bucuresti", "Bucuresti", 3, "302900"), "Puerto Cafe", new Time(1_800_000), new Time(900_000));
-        Local SalonGolescu = new Local(new Adresa("Bul. Tineretului", 15, null, null, null, "Bucuresti", "Bucuresti", 6, "302988"), "Salon Golescu", new Time(36_000_000), new Time(1_000_000));
-        Local CasaDori = new Local(new Adresa("Str. Alexandru Vlahuta", 13, 2, "A", 1, "Bucuresti", "Bucuresti", 3, "306700"), "Puerto Cafe", new Time(1_800_000), new Time(900_000));
-        Local CremeriaEmille = new Local(new Adresa("Str. Centrului", 34, 3, "C", 1, "Bucuresti", "Bucuresti", 3, "305677"), "Puerto Cafe", new Time(1_800_000), new Time(900_000));
-
-        PuertoCafe.addProdus(fp2);
-        PuertoCafe.addProdus(fp3);
-        PuertoCafe.addProdus(fp6);
-        PuertoCafe.addProdus(fp5);
-        PuertoCafe.addProdus(d1);
-        PuertoCafe.addProdus(d2);
-        PuertoCafe.addProdus(b1);
-        PuertoCafe.addProdus(b2);
-        PuertoCafe.addProdus(b3);
-        PuertoCafe.addProdus(b4);
-        PuertoCafe.addProdus(b5);
-        PuertoCafe.addProdus(b6);
-        PuertoCafe.addProdus(b7);
-
-        CremeriaEmille.addProdus(d1);
-        CremeriaEmille.addProdus(d2);
-        CremeriaEmille.addProdus(d3);
-        CremeriaEmille.addProdus(d4);
-        CremeriaEmille.addProdus(b4);
-        CremeriaEmille.addProdus(b7);
-        CremeriaEmille.addProdus(b7);
-
-        CasaDori.addProdus(fp1);
-        CasaDori.addProdus(fp7);
-        CasaDori.addProdus(fp8);
-        CasaDori.addProdus(b3);
-        CasaDori.addProdus(b4);
-        CasaDori.addProdus(b7);
-
-        SalonGolescu.addProdus(fp4);
-        SalonGolescu.addProdus(fp5);
-        SalonGolescu.addProdus(d4);
-
-        localuri.add(SalonGolescu);
-        localuri.add(CasaDori);
-        localuri.add(CremeriaEmille);
-        localuri.add(PuertoCafe);
-
-
+    this.localuri.addAll(citireDate.citesteDate());
     }
 
     public void addSoferi(){

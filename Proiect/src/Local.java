@@ -1,10 +1,8 @@
 import java.sql.Time;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class Local {
+public class Local implements Comparable<Local> {
 
     private  String denumire;
     private Time timpExecutieComanda;
@@ -12,6 +10,7 @@ public class Local {
     private static long nrAngajati;
     private  Adresa adresa;//agregare => adresa exista si dupa distrugerea obiectului de tip local
     private Set<Produs> produse;//fiecare local are o lista de produse => un  set (nu poate contine acelasi produs de mai multe ori)
+    private Scanner scanner = new Scanner(System.in);
 
 
     public  Local(Adresa adresa, String denumire, Time timpExecutieComanda, Time timpLivrare){
@@ -40,6 +39,7 @@ public class Local {
         this.produse = l.produse;
         this.timpLivrare = l.timpLivrare;
         this.timpExecutieComanda = l.timpExecutieComanda;
+        this.scanner = l.scanner;
 
     }
 
@@ -67,7 +67,7 @@ public class Local {
             Double pret = produs.getPret() - discount*1/produs.getPret();
             produs1.setPret(pret);
             produse.add(produs1);
-           // produs.setPret(pretInitial);
+
         }
         else{
             System.out.println("Localul nu ofera acest produs!");
@@ -75,8 +75,35 @@ public class Local {
     }
 
     public void afiseazaProduse(){
+        System.out.println("Setati filtru pt algerea produsului: \n 1. alfabetic, 2. pret crescator, 3. pret descrescator");
+        int optiune = scanner.nextInt();
+
+        Produs[] listaProduse = new Produs[produse.size()];
+        produse.toArray(listaProduse); //fac array din produse pt a le putea sorta
+
+        switch (optiune){
+           case 1:
+               Arrays.sort(listaProduse, new ComparaProduseAlfabetic());
+               System.out.println("--Afisare alfabetic--");
+               break;
+           case 2:
+                Arrays.sort(listaProduse, new ComparaProduseCresc());
+                System.out.println("--Afisare pret crescator--");
+                break;
+
+           case 3:
+                Arrays.sort(listaProduse, new ComparaProduseDesc());
+                System.out.println("--Afisare pret descrescator--");
+                break;
+
+           default:
+                System.out.println("--Fara filtru---");
+                break;
+
+        }
+
         System.out.println("Produsele localului " + denumire + " sunt:");
-       for(Produs p : produse){
+       for(Produs p : listaProduse){
            if(p instanceof Desert){
                System.out.println("*Desert* ");
            }
@@ -156,5 +183,10 @@ public class Local {
                 ", are un timp de executie comanda " + TimeUnit.MILLISECONDS.toMinutes(timpExecutieComanda.getTime()) + " minute " +
                 " si un timp de livrare " + TimeUnit.MILLISECONDS.toMinutes(timpLivrare.getTime()) + "minute\n" +
                 "localul " + adresa;
+    }
+
+    @Override
+    public int compareTo(Local o) {
+        return this.getDenumire().compareTo(o.getDenumire());
     }
 }

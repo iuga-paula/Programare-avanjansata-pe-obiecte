@@ -29,6 +29,7 @@ public class Adresa {
 
     }
 
+
     public Integer getBloc() {
         return bloc;
     }

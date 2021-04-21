@@ -1,0 +1,8 @@
+Alcool,Carbogazificare,Denumire,Pret,NumeLocal
+1,1,Aperol,10,"PuertoCafe, CasaDori"
+1,1,Sampanie rose,15.59,SalonGolescu
+1,0,Vin rosu,11.49,"SalonGolescu,CasaDori,PuertoCafe"
+0,0,Dorna,5,"CremeriaEmille, CasaDori"
+0,1,Dorna,5.5,"SalonGolescu,CasaDori,PuertoCafe"
+1,0,Vin alb,10,SalonGolescu
+0,0,Cappy,6.5,"CremeriaEmille, CasaDori"

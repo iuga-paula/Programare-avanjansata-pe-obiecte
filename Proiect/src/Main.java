@@ -3,10 +3,11 @@ import java.sql.Time;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
-       GestiunePlatforma gestiunePlatforma = GestiunePlatforma.getInstance();
-      // GestiunePlatforma  gestiunePlatforma1 = GestiunePlatforma.getInstance();
+    public static void main(String[] args){
 
+       try{
+           GestiunePlatforma gestiunePlatforma = GestiunePlatforma.getInstance();
+           gestiunePlatforma.addLocaluri();
 
         gestiunePlatforma.inegistrare();
         gestiunePlatforma.inegistrare();
@@ -22,16 +23,21 @@ public class Main {
         AltShift.addProdus(fp2);
         AltShift.addProdus(b1);
         AltShift.addProdus(b2);
+        AltShift.oferaDiscount(b2,10.00);
+        //AltShift.afiseazaProduse();
+        gestiunePlatforma.oferaDiscount(b2, AltShift, 10.00);
+
 
         gestiunePlatforma.adaugaLocalManager(AltShift);
         gestiunePlatforma.adaugaLocalPlaforma(AltShift);
+        gestiunePlatforma.veziProduseLocal(AltShift);
 
         //gestiunePlatforma.logare();
 
         gestiunePlatforma.delogare();
         gestiunePlatforma.afiseazaDateCont();
 
-        gestiunePlatforma.addLocaluri();
+        //gestiunePlatforma.addLocaluri();
         gestiunePlatforma.addSoferi();
 
         gestiunePlatforma.logare();
@@ -40,6 +46,7 @@ public class Main {
      gestiunePlatforma.schimbaAdresa(new Adresa("Bul. Tineretului", 10, 5 , "A", 123, "Bucuresti", "Bucuresti", 6, "302900"));
         gestiunePlatforma.afiseazaDateCont();
         gestiunePlatforma.veziListaLocaluri();
+        gestiunePlatforma.veziProduseLocal(AltShift);
         gestiunePlatforma.cautaProdus("Paste cu fructe de mare");
         gestiunePlatforma.veziProduseLocal(AltShift);
         gestiunePlatforma.comandaDeLaLocalul("AltShift");
@@ -55,9 +62,9 @@ public class Main {
         gestiunePlatforma.veziIstoric();
         gestiunePlatforma.adaugaLocalPreferinte(AltShift);
         gestiunePlatforma.veziPreferinte();
-        //gestiunePlatforma.stergeLocalPreferinte(AltShift);
-        //gestiunePlatforma.veziPreferinte();
-        //gestiunePlatforma.repetaComanda(1);
+        gestiunePlatforma.stergeLocalPreferinte(AltShift);
+        gestiunePlatforma.veziPreferinte();
+        gestiunePlatforma.repetaComanda(1);
 
 
         /*ValidatorAdesa validatorAdesa = new ValidatorAdesa();
@@ -156,6 +163,13 @@ public class Main {
         if(s.matches("^[ A-Za-z]+$")){
             System.out.println("da");
         }*/
+
+       }
+       catch (Exception exception){//(CloneNotSupportedException exception){
+
+           System.out.println("Clona nesuportata la linia: " + exception.getStackTrace()[0].getLineNumber());
+           exception.printStackTrace();
+        }
 
     }
 }

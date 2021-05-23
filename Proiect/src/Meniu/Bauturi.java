@@ -1,3 +1,5 @@
+package Meniu;
+
 import java.util.Objects;
 
 public class Bauturi extends  Produs{
@@ -19,7 +21,7 @@ public class Bauturi extends  Produs{
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 

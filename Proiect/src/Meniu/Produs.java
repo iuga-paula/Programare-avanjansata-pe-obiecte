@@ -1,3 +1,5 @@
+package Meniu;
+
 import java.util.Objects;
 
 public abstract class Produs implements Cloneable{
@@ -27,7 +29,7 @@ public abstract class Produs implements Cloneable{
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 
@@ -50,7 +52,7 @@ public abstract class Produs implements Cloneable{
 
     @Override
     public String toString() {
-        return "Produs{" +
+        return "Meniu.Produs{" +
                 "Id=" + Id +
                 ", denumire='" + denumire + '\'' +
                 ", pret=" + pret +

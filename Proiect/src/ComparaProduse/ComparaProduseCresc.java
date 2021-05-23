@@ -1,3 +1,7 @@
+package ComparaProduse;
+
+import Meniu.Produs;
+
 import java.util.Comparator;
 
 

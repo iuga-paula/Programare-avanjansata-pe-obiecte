@@ -1,3 +1,5 @@
+package Utilizatori;
+
 import java.util.concurrent.TimeUnit;
 
 public class Utilizator {
@@ -65,7 +67,7 @@ public class Utilizator {
         return rol;
     }
 
-    protected void setRol(String rol) {
+    public void setRol(String rol) {
         this.rol = rol;
     }
 
@@ -95,7 +97,7 @@ public class Utilizator {
 
     @Override
     public String toString() {
-        return "Utilizator{" +
+        return "Utilizatori.Utilizator{" +
                 "Id=" + Id +
                 ", username='" + username + '\'' +
                 ", parola='" + parola + '\'' +

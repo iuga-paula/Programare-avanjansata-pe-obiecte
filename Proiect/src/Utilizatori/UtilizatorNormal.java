@@ -1,3 +1,9 @@
+package Utilizatori;
+
+import Localuri.Adresa;
+import Localuri.Comanda;
+import Localuri.Local;
+
 import java.util.*;
 
 public class UtilizatorNormal extends Utilizator{
@@ -8,7 +14,7 @@ public class UtilizatorNormal extends Utilizator{
     List<Comanda> istoricComenzi;
     Set<Local> preferinte;//un local nu poate aparea de mai multe ori in preferinte
 
-    public  UtilizatorNormal(Comanda c,Adresa a, String nume, String prenume, String email){
+    public  UtilizatorNormal(Comanda c, Adresa a, String nume, String prenume, String email){
         this.adresa = a;
         this.nume = nume;
         this.prenume = prenume;
@@ -52,7 +58,7 @@ public class UtilizatorNormal extends Utilizator{
 
         if(istoricComenzi != null) {
             for (int i = 0; i < istoricComenzi.size(); i++) {
-                System.out.println("Comanda cu nr: " + (i + 1));
+                System.out.println("Localuri.Comanda cu nr: " + (i + 1));
                 System.out.println(istoricComenzi.get(i));
             }
         }

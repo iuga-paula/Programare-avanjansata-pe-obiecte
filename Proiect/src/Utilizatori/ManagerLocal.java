@@ -1,3 +1,7 @@
+package Utilizatori;
+
+import Localuri.Local;
+
 public class ManagerLocal extends Utilizator{
 
     Local local;//compozitie => localul nu mai exista dupa distrugerea obiectului de tip manager;
@@ -37,7 +41,7 @@ public class ManagerLocal extends Utilizator{
 
     @Override
     public String toString() {
-        return "ManagerLocal{" +
+        return "Utilizatori.ManagerLocal{" +
                 "local=" + local +
                 ", codAutorizatie='" + codAutorizatie + '\'' +
                 '}';

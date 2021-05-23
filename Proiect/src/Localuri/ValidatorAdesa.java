@@ -1,14 +1,18 @@
+package Localuri;
+
+import Localuri.Adresa;
+
 import java.util.Objects;
 
 public class ValidatorAdesa {
 
     public Boolean Validare(Adresa adresa){
         if(CodPostal(adresa.getCodPostal()) && LocalitateSector(adresa.getLocalitate(),adresa.getJudet(), adresa.getSector()) && NrBloc(adresa.getNr(), adresa.getBloc(),adresa.getApartament())){
-            System.out.println("Adresa corecta");
+            System.out.println("Localuri.Adresa corecta");
             return true;
         }
         else{
-            System.out.println("Adresa incorecta!");
+            System.out.println("Localuri.Adresa incorecta!");
             return false;
         }
 

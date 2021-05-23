@@ -1,8 +1,15 @@
-import Bcrypt.BCrypt;
+package Gestiuni;
 
-import java.sql.Time;
+import Bcrypt.BCrypt;
+import Localuri.*;
+import Meniu.*;
+import Repo.*;
+import Utilizatori.*;
+import CSV.*;
+
+
+import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.DoubleToIntFunction;
 
 import static Bcrypt.BCrypt.checkpw;
 
@@ -13,17 +20,21 @@ public class GestiunePlatforma {
     private TreeSet<Local> localuri = new TreeSet<>();
     private String usernameUtlogat;
     private String parolaUtlogat;
-    private Set<Sofer> soferi = new HashSet<Sofer>();
+    private Set<Sofer> soferi = new HashSet<>();
 
     private Scanner scanner = new Scanner(System.in);
     private Audit audit;
     private CitireDate citireDate;
+    private Boolean bd = true;
+
+
 
     private GestiunePlatforma() {
         System.out.println("Bine ati venit la platforma GoodFood GoodLife!");
 
         audit = Audit.getInstance("D:\\documente\\An2_sem2\\ProgrAvansOb\\Proiect\\Logging.csv");//creez serviciul de audit
         citireDate = CitireDate.getInstance();
+
     }
 
 
@@ -94,14 +105,14 @@ public class GestiunePlatforma {
         System.out.println("Introduceti prenume:");
         String prenume = scanner.nextLine();
 
-        System.out.println("Utilizator normal? Da sau nu");
+        System.out.println("Utilizatori.Utilizator normal? Da sau nu");
 
         String optiune = scanner.next();
 
         if (Objects.equals(optiune.toLowerCase(), "nu")) {
 
             System.out.println("Intorduceti cod autorizatie:");
-            mn.codAutorizatie = scanner.next();
+            mn.setCodAutorizatie(scanner.next());
             mn.setEmail(mail);
             mn.setNume(nume);
             mn.setPrenume(prenume);
@@ -227,13 +238,48 @@ public class GestiunePlatforma {
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
 
-                System.out.println("*Adaugare Local*");
+                System.out.println("*Adaugare local*");
                 if(localuri.contains(local))
                 {
                     System.out.println("Acest local exista deja!");
                     return;
                 }
+                else {
+                    System.out.println("Local valid");
+                }
                 localuri.add(local);
+                if(bd) {
+                    //ii adaug si adresa in baza de date
+                    Adresa_Repo.insert(local.getAdresa());
+                    Integer id = Adresa_Repo.getIdAdresa(local.getAdresa());
+                    Localuri_Repo.insert(local, id);//adaug localul in baza de date
+                    Integer idLocal = Localuri_Repo.getId(local.getDenumire());
+                    //ii adaug toate produsele in baza de date si apoi legaturile cu ele din tabelel asociative
+                    Set<Produs> produse = local.getProduse();
+                    for (Produs p:produse){
+                        //adaug produsul si in baza de date pt local;
+                        if (p instanceof Bauturi) {
+                            Bauturi_Repo.insert((Bauturi) p);
+                            Integer idProdus = Bauturi_Repo.getIdBautura((Bauturi) p);
+                            if(idProdus != null)
+                                Bauturi_Repo.adaugaBaturaLocal(idLocal, idProdus);
+                        } else if (p instanceof Desert) {
+                            Desert_Repo.insert((Desert) p);
+                            Integer idProdus = Desert_Repo.getIdDesert((Desert) p);
+                            if(idProdus != null)
+                                Desert_Repo.adaugaDesertLocal(idLocal, idProdus);
+
+                        } else if (p instanceof FelPrincipal) {
+                            Felurip_Repo.insert((FelPrincipal) p);
+                            Integer idProdus = Felurip_Repo.getIdFelp((FelPrincipal) p);
+                            if(idProdus != null)
+                                Felurip_Repo.adaugaFelpLocal(idLocal, idProdus);
+
+                        }
+
+
+                    }
+                }
 
             } else {
                 System.out.println("Nu aveti permisiunea pentru a adauga local!");
@@ -252,7 +298,46 @@ public class GestiunePlatforma {
             if (users.get(usernameUtlogat) instanceof ManagerLocal) {
                 System.out.println("*Adaugati-va un local*");
                 ((ManagerLocal) users.get(usernameUtlogat)).setLocal(local);
+                if(localuri.contains(local))
+                {
+                    System.out.println("Acest local exista deja!");
+                    return;
+                }
+                else System.out.println("Local valid");
                 localuri.add(local);
+                    if(bd) {
+                        //ii adaug si adresa in baza de date
+                        Adresa_Repo.insert(local.getAdresa());
+                        Integer id = Adresa_Repo.getIdAdresa(local.getAdresa());
+                        Localuri_Repo.insert(local, id);//adaug localul in baza de date
+                        Integer idLocal = Localuri_Repo.getId(local.getDenumire());
+                        //ii adaug toate produsele in baza de date si apoi legaturile cu ele din tabelel asociative
+                        Set<Produs> produse = local.getProduse();
+                        for (Produs p:produse){
+                            //adaug produsul si in baza de date pt local;
+                            if (p instanceof Bauturi) {
+                                Bauturi_Repo.insert((Bauturi) p);
+                                Integer idProdus = Bauturi_Repo.getIdBautura((Bauturi) p);
+                                if(idProdus != null)
+                                    Bauturi_Repo.adaugaBaturaLocal(idLocal, idProdus);
+                            } else if (p instanceof Desert) {
+                                Desert_Repo.insert((Desert) p);
+                                Integer idProdus = Desert_Repo.getIdDesert((Desert) p);
+                                if(idProdus != null)
+                                    Desert_Repo.adaugaDesertLocal(idLocal, idProdus);
+
+                            } else if (p instanceof FelPrincipal) {
+                                Felurip_Repo.insert((FelPrincipal) p);
+                                Integer idProdus = Felurip_Repo.getIdFelp((FelPrincipal) p);
+                                if(idProdus != null)
+                                    Felurip_Repo.adaugaFelpLocal(idLocal, idProdus);
+
+                            }
+
+
+                        }
+
+                }
             }
         }
         else{
@@ -340,6 +425,23 @@ public class GestiunePlatforma {
                 for(Local local1:localuri) {
                     if (local1.equals(local)) {
                         local1.addProdus(p);
+                        if(bd) {
+                            //adaug produsul si in baza de date pt local;
+                            Integer idLocal = Localuri_Repo.getId(local.getDenumire());
+                            if (p instanceof Bauturi) {
+                                Integer idProdus = Bauturi_Repo.getIdBautura((Bauturi) p);
+                                Bauturi_Repo.adaugaBaturaLocal(idLocal, idProdus);
+                            } else if (p instanceof Desert) {
+                                Integer idProdus = Desert_Repo.getIdDesert((Desert) p);
+                                Desert_Repo.adaugaDesertLocal(idLocal, idProdus);
+
+                            } else if (p instanceof FelPrincipal) {
+                                Integer idProdus = Felurip_Repo.getIdFelp((FelPrincipal) p);
+                                Felurip_Repo.adaugaFelpLocal(idLocal, idProdus);
+
+                            }
+                        }
+
 
                         break;
                     }
@@ -364,7 +466,22 @@ public class GestiunePlatforma {
                 for(Local local1:localuri) {
                     if (local1.equals(local)) {
                         local1.stergeProdus(p);
+                        if(bd) {
+                            //sterg produsul de la local si din baza de date
+                            Integer idLocal = Localuri_Repo.getId(local.getDenumire());
+                            if (p instanceof Bauturi) {
+                                Integer idProdus = Bauturi_Repo.getIdBautura((Bauturi) p);
+                                Bauturi_Repo.stergeBaturaLocal(idLocal, idProdus);
+                            } else if (p instanceof Desert) {
+                                Integer idProdus = Desert_Repo.getIdDesert((Desert) p);
+                                Desert_Repo.stergeDesertLocal(idLocal, idProdus);
 
+                            } else if (p instanceof FelPrincipal) {
+                                Integer idProdus = Felurip_Repo.getIdFelp((FelPrincipal) p);
+                                Felurip_Repo.stergeFelpLocal(idLocal, idProdus);
+
+                            }
+                        }
                         break;
                     }
 
@@ -475,7 +592,7 @@ public class GestiunePlatforma {
 
         if (usernameUtlogat != null && !usernameUtlogat.isEmpty()) {
             if (users.get(usernameUtlogat) instanceof UtilizatorNormal) {
-                System.out.println("*Comanda in curs*");
+                System.out.println("*Localuri.Comanda in curs*");
                 System.out.println(((UtilizatorNormal) users.get(usernameUtlogat)) .getComandaInCurs());
             }
         }
@@ -599,20 +716,39 @@ public class GestiunePlatforma {
 
                 System.out.println("Cum doriti sa primiti comanda? Introduceti 1 pentru preluare personala si 2 pentru transport.");
                 int optiune = scanner.nextInt();
-                //aleg sofer random din multimea de soferi si il asignez la comanda;
+
+
+                //pt data
+                Date date = new Date();
+                java.sql.Date new_date =new java.sql.Date(date.getTime());
+
                 switch (optiune) {
-                    case 1 -> {
+                    case 1 -> {//cu ridicare personala
                         ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().finalizeaza2();
+                       Double total = ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getTotal();
+                       Double discount = ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getDiscount();
+                       Integer idLocal = Localuri_Repo.getId(((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getLocal().getDenumire());
+
                         ((UtilizatorNormal) users.get(usernameUtlogat)).adaugaComandaIstoric();
+                        if(bd)
+                            ManagerBd.adaugaComanda(users.get(usernameUtlogat).getUsername(), new_date, total, discount, idLocal,null);
+
                     }
                     case 2 -> {
                         int size = soferi.size();
-                        int item = new Random().nextInt(size);
+                        int item = new Random().nextInt(size);//aleg sofer random din multimea de soferi si il asignez la comanda;
                         int i = 0;
                         for (Sofer sofer : soferi) {
-                            if (i == item) {
+                            if (i == item) {//cu livrare
                                 ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().finalizeaza(sofer);
                                 ((UtilizatorNormal) users.get(usernameUtlogat)).adaugaComandaIstoric();
+
+                                Double total = ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getTotal();
+                                Double discount = ((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getDiscount();
+                                Integer idLocal = Localuri_Repo.getId(((UtilizatorNormal) users.get(usernameUtlogat)).getComandaInCurs().getLocal().getDenumire());
+                                Integer idSofer = Soferi_Repo.getidSofer(sofer.getNume(), sofer.getPrenume());
+                                if(bd)
+                                    ManagerBd.adaugaComanda(users.get(usernameUtlogat).getUsername(), new_date, total, discount, idLocal,idSofer);
                                 break;
                             }
 
@@ -632,21 +768,26 @@ public class GestiunePlatforma {
 
 public  void addLocaluri(){
 
-    this.localuri.addAll(citireDate.citesteDate());
+
+    if(bd) {//din baza de date
+        localuri.addAll(ManagerBd.adaugaLocaluriBD());
+    }
+    else {
+        this.localuri.addAll(citireDate.citesteDate()); //citire cu CSV
+    }
     }
 
     public void addSoferi(){
-        soferi.add(new Sofer("Ilie", "Casian Iulian", "part-time", 1500.00, "0772207605"));
-        soferi.add(new Sofer("Antonescu", "Marius", "full-time", 1700.00, "0773467605"));
-        soferi.add(new Sofer("Popa", "Gabriel", "part-time", 1600.50, "0774205909"));
-        soferi.add(new Sofer("Dusescu", "Adrian", "full-time", 1678.30, "0772807699"));
-        soferi.add(new Sofer("Ieftimie", "Antonio", "practica", 1000.00, "0787207005"));
-        soferi.add(new Sofer("Dumitru", "Iustin", "part-time", 1300.00, "0772206020"));
-        soferi.add(new Sofer("Georgescu", "Alex Andrei", "full-time", 1600.00, "0772707115"));
-        soferi.add(new Sofer("Mantarosie", "Iulian", "full-time", 1698.90, "0777709105"));
-
+        if(bd) {//din baza de date
+            soferi.addAll(Soferi_Repo.get_soferi());
+        }
+        else {
+            soferi.add(new Sofer("Ilie" ,"Casian Iulian", "part-time",1500.000,"0772207605"));
+            soferi.add(new Sofer("Antonescu","Marius", "full-time", 1700.000,"0773467605"));
+        }
 
     }
+
 
     public  void afiseazaSoferi(){
         for(Sofer s:soferi){

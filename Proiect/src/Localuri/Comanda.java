@@ -1,4 +1,7 @@
-import java.sql.Time;
+package Localuri;
+
+import Meniu.Produs;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +14,7 @@ public class Comanda {
     private Double discount;
 
     private  Local local;//compozitie
-    private  Sofer sofer;//agregare
+    private Sofer sofer;//agregare
     private List<Produs> produse;
 
 
@@ -51,11 +54,11 @@ public class Comanda {
         if (total != 0.00) {
             this.sofer = sofer;
 
-            System.out.println("*Comanda cu nr. " + IdComanda + " de la " + local.getDenumire() + " plasata*");
+            System.out.println("*Localuri.Comanda cu nr. " + IdComanda + " de la " + local.getDenumire() + " plasata*");
             total = total - 1 / total * discount;
             System.out.println("Total: " + total);
             System.out.println("Timp estimat livrare: " + (TimeUnit.MILLISECONDS.toMinutes((local.getTimpExecutieComanda()).getTime()) + TimeUnit.MILLISECONDS.toMinutes((local.getTimpExecutieComanda()).getTime())) + " minute");
-            System.out.println("Sofer: " + sofer.getNume() + " " + sofer.getPrenume() + " Telefon:" + sofer.getNrTelefon());
+            System.out.println("Localuri.Sofer: " + sofer.getNume() + " " + sofer.getPrenume() + " Telefon:" + sofer.getNrTelefon());
             System.out.println("Produse: ");
             for (Produs p : produse) {
                 System.out.println(p);
@@ -70,7 +73,7 @@ public class Comanda {
 
     public  void finalizeaza2() {//cu ridicare personala
         if (total != 0.00) {
-            System.out.println("*Comanda cu nr. " + IdComanda + " de la " + local.getDenumire() + " plasata*");
+            System.out.println("*Localuri.Comanda cu nr. " + IdComanda + " de la " + local.getDenumire() + " plasata*");
             total = total - 1 / total * discount;
             System.out.println("Total: " + total);
             System.out.println("Timp estimat livrare: " + (TimeUnit.MILLISECONDS.toMinutes((local.getTimpExecutieComanda()).getTime()) + TimeUnit.MILLISECONDS.toMinutes((local.getTimpExecutieComanda()).getTime())) + " minute");
@@ -91,7 +94,7 @@ public class Comanda {
     public void adaugaProdus(Produs p){
         if(!(local.getProduse()).contains(p)){
             System.out.println(local);
-            System.out.println("Produs de la alt local! Adaugati un local nou");
+            System.out.println("Meniu.Produs de la alt local! Adaugati un local nou");
         }
         else{
             produse.add(p);
@@ -167,7 +170,7 @@ public class Comanda {
 
     @Override
     public String toString() {
-        return "Comanda{" +
+        return "Localuri.Comanda{" +
                 "IdComanda=" + IdComanda +
                 ", total=" + total +
                 ", discount=" + discount +

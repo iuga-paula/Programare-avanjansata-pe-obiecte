@@ -1,3 +1,5 @@
+package Meniu;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -36,7 +38,7 @@ public class Desert extends Produs{
     }
 
     @Override
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 

@@ -1,3 +1,10 @@
+package CSV;
+
+import Localuri.Adresa;
+import Localuri.Local;
+import Meniu.Bauturi;
+import Meniu.Desert;
+import Meniu.FelPrincipal;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
@@ -121,14 +128,14 @@ public class CitireDate {
             }
 
 
-//                for(Local l : localuri){
+//                for(Localuri.Local l : localuri){
 //                    l.afiseazaProduse();
 //                    System.out.println();
 //                }
 
             }
         catch (IOException | CsvException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.println("Nu s-a gasit fisier intrare");
         }
 

@@ -1,3 +1,5 @@
+package Localuri;
+
 import java.util.Objects;
 
 public class Adresa {

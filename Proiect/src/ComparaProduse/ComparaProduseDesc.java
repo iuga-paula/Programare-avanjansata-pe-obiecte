@@ -1,3 +1,7 @@
+package ComparaProduse;
+
+import Meniu.Produs;
+
 import java.util.Comparator;
 
 public class ComparaProduseDesc implements Comparator<Produs> {

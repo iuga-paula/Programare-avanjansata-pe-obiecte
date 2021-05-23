@@ -1,3 +1,5 @@
+package Localuri;
+
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
@@ -131,7 +133,7 @@ public class Sofer {
 
     @Override
     public String toString() {
-        return "Sofer{" +
+        return "Localuri.Sofer{" +
                 "nume='" + nume + '\'' +
                 ", prenume='" + prenume + '\'' +
                 ", tipContract='" + tipContract + '\'' +

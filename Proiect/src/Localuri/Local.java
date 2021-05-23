@@ -1,3 +1,12 @@
+package Localuri;
+
+import ComparaProduse.ComparaProduseAlfabetic;
+import ComparaProduse.ComparaProduseCresc;
+import ComparaProduse.ComparaProduseDesc;
+import Meniu.Bauturi;
+import Meniu.Desert;
+import Meniu.Produs;
+
 import java.sql.Time;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -105,10 +114,10 @@ public class Local implements Comparable<Local> {
         System.out.println("Produsele localului " + denumire + " sunt:");
        for(Produs p : listaProduse){
            if(p instanceof Desert){
-               System.out.println("*Desert* ");
+               System.out.println("*Meniu.Desert* ");
            }
-           else if(p instanceof  Bauturi){
-               System.out.println("*Bauturi* ");
+           else if(p instanceof Bauturi){
+               System.out.println("*Meniu.Bauturi* ");
            }
            else{
                System.out.println("*Fel Principal* ");
